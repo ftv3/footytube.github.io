@@ -62,24 +62,25 @@
 <body>
 
   <video autoplay muted loop id="ftVideo">
-    <source src="bgloop.mp4" autoplay loop muted controls type="video/mp4">
+    <source src="bgloop.mp4"  type="video/mp4">
       Your browser does not support HTML5 video.
     </video>
 
     <div class="content">
+      <p><a href="https://www.youtube.com/watch?v=lfpOa8Hkt4o" target="_blank"><img src="footytube-logo-red.png" width="250px" alt="footytube logo"></a></p>
     </div>
 
     <script>
       var video = document.getElementById("ftVideo");
-      //var btn = document.getElementById("ftBtn");
+      var btn = document.getElementById("ftBtn");
 
       function ftFunction() {
         if (video.paused) {
           video.play();
-         // btn.innerHTML = "Pause";
+          btn.innerHTML = "Pause";
         } else {
           video.pause();
-         // btn.innerHTML = "Play";
+          btn.innerHTML = "Play";
         }
       }
     </script>
