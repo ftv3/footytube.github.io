@@ -49,7 +49,15 @@
             bottom: 100px;
             right: 10px;
             padding: 10px;
-            display: none; /* Initially hidden */
+            opacity: 0;
+            transform: translateY(20px); /* Start position for fade-up */
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Fade-in and fade-up effect */
+            pointer-events: none; /* Ignore pointer events when hidden */
+        }
+        .icon-table.visible {
+            opacity: 1;
+            transform: translateY(0); /* Move to normal position when visible */
+            pointer-events: auto; /* Reactivate pointer events when visible */
         }
         .icon-table i {
             color: white;
@@ -104,28 +112,24 @@
 
         // Function to show icons
         function showIcons() {
-            iconTable.style.display = 'block';
             clearTimeout(hideIconsTimeout); // Prevent hiding if the user interacts again
+            iconTable.classList.add('visible');
         }
 
         // Function to hide icons with delay (for mobile behavior)
         function hideIconsWithDelay() {
             hideIconsTimeout = setTimeout(() => {
-                iconTable.style.display = 'none';
+                iconTable.classList.remove('visible');
             }, 2000); // Hide icons after 2 seconds of no interaction
         }
 
         // Desktop event listeners
         video.addEventListener('mouseenter', showIcons);
-        video.addEventListener('mouseleave', () => {
-            hideIconsWithDelay();
-        });
+        video.addEventListener('mouseleave', hideIconsWithDelay);
 
         // Mobile event listeners
         video.addEventListener('touchstart', showIcons);
-        video.addEventListener('touchend', () => {
-            hideIconsWithDelay();
-        });
+        video.addEventListener('touchend', hideIconsWithDelay);
 
         // Call the function on page load
         setVideoSource();
