@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️ footytube - love football</title>
+    <meta name="description" content="football videos, highlights and original content" />
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph Meta Tags -->
+    <meta name="twitter:title" content="&hearts; footytube - love football" />
+    <meta name="twitter:description" content="Good Things Come To Those Who Wait..." />
+    <meta property="og:image" content="https://footytube.com/footytube-og-image.jpg" />
+    <meta property="og:url" content="https://footytube.com" />
+    <meta property="og:type" content="website" />
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="&hearts; footytube - love football" />
+    <meta name="twitter:description" content="Good Things Come To Those Who Wait..." />
+    <meta name="twitter:image" content="https://footytube.com/footytube-og-image.jpg" />
+    <meta name="twitter:url" content="https://footytube.com" />
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Other necessary meta tags -->
+    <link rel="canonical" href="https://footytube.com" />
+    <meta name="description" content="<3 footytube: Good Things Come To Those Who Wait..." />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: black; /* Ensures the background is black */
+        }
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* Icon Table Style */
+        .icon-table {
+            position: absolute;
+            bottom: 100px;
+            right: 10px;
+            padding: 10px;
+            display: none; /* Initially hidden */
+        }
+        .icon-table i {
+            color: white;
+            margin-bottom: 7px;
+            font-size: 24px;
+            cursor: pointer;
+            display: block;
+        }
+        .icon-table img {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 7px;
+        }
+    </style>
+</head>
+<body>
+
+    <video id="bgVideo" autoplay muted loop controls>
+        <source id="videoSource" src="" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <!-- Icon Table -->
+    <div class="icon-table" id="iconTable">
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-share-alt"></i>
+        <i class="fas fa-save"></i>
+        <img src="https://footytube.com/logo.png" alt="Video Creator Logo">
+    </div>
+
+    <script>
+        function isMobile() {
+            return /Mobi|Android/i.test(navigator.userAgent);
+        }
+
+        function setVideoSource() {
+            const video = document.getElementById('bgVideo');
+            const videoSource = document.getElementById('videoSource');
+
+            if (isMobile()) {
+                videoSource.src = 'bgloop-mobile.mp4';
+            } else {
+                videoSource.src = 'bgloop.mp4';
+            }
+
+            video.load();
+        }
+
+        const video = document.getElementById('bgVideo');
+        const iconTable = document.getElementById('iconTable');
+        let hideIconsTimeout;
+
+        // Function to show icons
+        function showIcons() {
+            iconTable.style.display = 'block';
+            clearTimeout(hideIconsTimeout); // Prevent hiding if the user interacts again
+        }
+
+        // Function to hide icons with delay (for mobile behavior)
+        function hideIconsWithDelay() {
+            hideIconsTimeout = setTimeout(() => {
+                iconTable.style.display = 'none';
+            }, 2000); // Hide icons after 2 seconds of no interaction
+        }
+
+        // Desktop event listeners
+        video.addEventListener('mouseenter', showIcons);
+        video.addEventListener('mouseleave', () => {
+            hideIconsWithDelay();
+        });
+
+        // Mobile event listeners
+        video.addEventListener('touchstart', showIcons);
+        video.addEventListener('touchend', () => {
+            hideIconsWithDelay();
+        });
+
+        // Call the function on page load
+        setVideoSource();
+
+        // Optional: Listen to window resize if you want to handle changes dynamically
+        window.addEventListener('resize', setVideoSource);
+    </script>
+
+</body>
+</html>
