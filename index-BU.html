@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>❤️ footytube - love football</title>  
-    <meta name="description" content="football videos, highlights and original content" />
-    <meta name="robots" content="index, follow">
+    <meta name="description" content= "football videos, highlights and original content" />
+    <meta name="robots" content= "index, follow">
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="❤️ footytube - love football" />
-    <meta property="og:description" content="Good Things Come To Those Who Wait..." />
+    <meta name="twitter:title" content="&hearts; footytube - love football" />
+    <meta name="twitter:description" content="Good Things Come To Those Who Wait..." />
     <meta property="og:image" content="https://footytube.com/footytube-og-image.jpg" />
     <meta property="og:url" content="https://footytube.com" />
     <meta property="og:type" content="website" /> 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="❤️ footytube - love football" />
+    <meta name="twitter:title" content="&hearts; footytube - love football" />
     <meta name="twitter:description" content="Good Things Come To Those Who Wait..." />
     <meta name="twitter:image" content="https://footytube.com/footytube-og-image.jpg" />
     <meta name="twitter:url" content="https://footytube.com" />    
     <!-- Other necessary meta tags -->
     <link rel="canonical" href="https://footytube.com" />
+    <meta name="description" content="<3 footytube: Good Things Come To Those Who Wait..." />
     <style>
         * {
             margin: 0;
@@ -30,7 +31,7 @@
             height: 100%;
             width: 100%;
             overflow: hidden;
-            background-color: black;
+            background-color: black; /* Ensures the background is black */
         }
         video {
             position: absolute;
@@ -40,33 +41,14 @@
             height: 100%;
             object-fit: cover;
         }
-        /* Overlay icon styling */
-        .overlay-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 70px;
-            height: 70px;
-            z-index: 10;
-        }
-        .overlay-icon img {
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-        }
     </style>
 </head>
 <body>
 
-    <video id="bgVideo" autoplay muted loop controls>
+    <video id="bgVideo" autoplay muted loop controls="minimal">
         <source id="videoSource" src="" type="video/mp4">
         Your browser does not support HTML5 video.
     </video>
-
-    <!-- Overlay Channel Icon -->
-    <a href="https://www.kickitout.org/" target="_blank" class="overlay-icon">
-        <img src="kickitout-logo.jpg" alt="Kick It Out logo">
-    </a>
 
     <script>
         function isMobile() {
@@ -74,9 +56,16 @@
         }
 
         function setVideoSource() {
+            const video = document.getElementById('bgVideo');
             const videoSource = document.getElementById('videoSource');
-            videoSource.src = isMobile() ? 'bgloop-mobile.mp4' : 'bgloop.mp4';
-            document.getElementById('bgVideo').load();
+
+            if (isMobile()) {
+                videoSource.src = 'bgloop-mobile.mp4';
+            } else {
+                videoSource.src = 'bgloop.mp4';
+            }
+
+            video.load();
         }
 
         // Call the function on page load
