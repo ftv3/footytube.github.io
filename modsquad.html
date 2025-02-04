@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FTv3 Changing Room</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">  </head>
+<body>
+  <h1>FTv3 Changing Room!</h1>
+
+  <div id="user-info" style="display: none;">
+    <img id="user-profile-pic" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px; vertical-align: middle;">
+    <h2>Welcome, <span id="user-display-name"></span>!</h2>
+    <p>User ID: <span id="user-uid"></span></p>
+    <p>Email: <span id="user-email"></span></p>
+
+
+
+    <form id="options-form">
+      <label>
+        <input type="checkbox" id="floodlight" name="floodlight"> v3.00 (Floodlight) Beta Testers
+      </label><br>
+      <label>
+        <input type="checkbox" id="newsletter" name="newsletter"> Newsletter Signup
+      </label><br>
+      <label>
+        <input type="checkbox" id="developer" name="developer"> Developer Team
+      </label>
+
+      <div class="button-container">  <button id="signOutBtn" class="gsi-material-button">
+        <i class="material-icons">logout</i> Sign Out  </button>
+      <button id="signUpBtn" class="gsi-material-button">
+        <i class="material-icons">person_add</i> Sign Up </button>
+    </div>
+
+    </form>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+  <script src="session_script.js"></script> </body>
+</html>
