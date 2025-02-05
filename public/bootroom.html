@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootroom</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS (for modal functionality) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+ html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #2b3035;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Video background container */
+  .background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  /* Create a semi-transparent overlay */
+  .background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark color with opacity */
+    z-index: 2;
+  }
+
+.profile-pic {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  z-index: 4;
+}
+
+.center-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+  z-index: 3; /* Ensures the form stays above the overlay */
+}
+
+.form-container {
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 760px;
+}
+
+.material-icons {
+  vertical-align: middle;
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+
+    </style>
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyC0klvquNzRE4dAMmB53W3QIJnsBOkFVmg",
+        authDomain: "ftv3-a8285.firebaseapp.com",
+        projectId: "ftv3-a8285",
+        storageBucket: "ftv3-a8285.firebasestorage.app",
+        messagingSenderId: "888671748987",
+        appId: "1:888671748987:web:63292c091620b178e333de"
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+    </script>
+  </head>
+  <body>
+    <!-- Video Background -->
+    <video id="bgVideo" class="background-video" autoplay playsinline muted>
+        <source src="./video/bg-bootroom.mp4" type="video/mp4">
+    </video>
+    
+  <div class="background-overlay"></div> <!-- Dark overlay for contrast -->
+    
+    <img id="profile-pic" class="profile-pic" src="" alt="Profile Picture" style="display:none;">
+    
+    <div class="container center-form">
+      <div class="form-container">
+        <h2 class="mb-4">Bootroom Signup</h2>
+        <form id="bootroom-form">
+            <div class="mb-3">
+              <label for="displayName" class="form-label">
+                <i class="material-icons">person</i> Name
+              </label>
+              <input type="text" class="form-control" id="displayName" readonly>
+            </div>
+          
+            <div class="mb-3">
+              <label for="email" class="form-label">
+                <i class="material-icons">email</i> Email
+              </label>
+              <input type="email" class="form-control" id="email" readonly>
+            </div>
+          
+            <div class="mb-3">
+              <label for="clubTeam" class="form-label">
+                <i class="material-icons">sports_soccer</i> Club Team
+              </label>
+              <input type="text" class="form-control" id="clubTeam" placeholder="Your Club Team">
+            </div>
+          
+            <div class="mb-3">
+              <label for="nationalTeam" class="form-label">
+                <i class="material-icons">flag</i> National Team
+              </label>
+              <input type="text" class="form-control" id="nationalTeam" placeholder="Your National Team">
+            </div>
+          
+            <div class="mb-3">
+              <label for="location" class="form-label">
+                <i class="material-icons">location_on</i> Location
+              </label>
+              <input type="text" class="form-control" id="location" placeholder="Your Location">
+            </div>
+          
+            <div class="mb-3">
+              <p>Sign me up to:</p>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="betaTesting">
+                <label class="form-check-label" for="betaTesting">
+                  <i class="material-icons">build</i> V3 (Floodlight) Beta Testing
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="newsletter">
+                <label class="form-check-label" for="newsletter">
+                  <i class="material-icons">mail</i> Footytube Newsletter
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="devTeam">
+                <label class="form-check-label" for="devTeam">
+                  <i class="material-icons">code</i> Footytube Dev Team
+                </label>
+              </div>
+            </div>
+          
+            <hr>
+          
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="privacyPolicy" required>
+                <label class="form-check-label" for="privacyPolicy">
+                  <i class="material-icons">policy</i> I agree to your 
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#privacyPolicyModal">PEPP (Plain English Privacy Policy)</a>
+                </label>
+              </div>
+          
+              <div id="buttonContainer" class="d-flex justify-content-between align-items-center mt-3 gap-2">
+                <button type="submit" class="btn btn-primary">
+                  <i class="material-icons">person_add</i> Register
+                </button>
+              </div>
+              
+          </form>
+          
+      </div>
+    </div>
+    
+    <script>
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          document.getElementById("displayName").value = user.displayName || "";
+          document.getElementById("email").value = user.email || "";
+          if (user.photoURL) {
+            const profilePic = document.getElementById("profile-pic");
+            profilePic.src = user.photoURL;
+            profilePic.style.display = "block";
+          }
+        } else {
+          window.location.href = "./index.html";
+        }
+      });
+
+    
+    
+      document.addEventListener("DOMContentLoaded", function () {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            const userId = user.uid;
+            const userRef = firebase.firestore().collection("users").doc(userId);
+
+            userRef.get().then((doc) => {
+                if (doc.exists) {
+                    const userData = doc.data();
+                    document.getElementById("displayName").value = userData.displayName || user.displayName;
+                    document.getElementById("email").value = userData.email || user.email;
+                    document.getElementById("clubTeam").value = userData.clubTeam || "";
+                    document.getElementById("nationalTeam").value = userData.nationalTeam || "";
+                    document.getElementById("location").value = userData.location || "";
+                    document.getElementById("betaTesting").checked = userData.betaTesting || false;
+                    document.getElementById("newsletter").checked = userData.newsletter || false;
+                    document.getElementById("devTeam").checked = userData.devTeam || false;
+
+                    const registerButton = document.querySelector("#bootroom-form button[type='submit']");
+                    registerButton.innerHTML = '<i class="material-icons">update</i> Update';
+                    registerButton.classList.remove("btn-primary");
+                    registerButton.classList.add("btn-success");
+
+                    if (!document.getElementById("removeUser")) {
+                        const removeButton = document.createElement("button");
+                        removeButton.id = "removeUser";
+                        removeButton.className = "btn btn-danger btn-sm mt-0";
+                        removeButton.innerHTML = '<i class="material-icons">delete</i> Remove Me';
+                        
+                        removeButton.onclick = function () {
+                            // Show delete confirmation modal
+                            const confirmDeleteModal = new bootstrap.Modal(document.getElementById("confirmDeleteModal"));
+                            confirmDeleteModal.show();
+
+                            // Only delete account when confirm button is clicked
+                            document.getElementById("confirmDeleteBtn").onclick = function () {
+                                userRef.delete().then(() => {
+                                    firebase.auth().signOut().then(() => {
+                                        location.reload();
+                                    });
+                                }).catch((error) => {
+                                    console.error("Error removing account:", error);
+                                });
+                            };
+                        };
+
+                        let buttonContainer = document.getElementById("buttonContainer");
+                        if (!buttonContainer) {
+                            buttonContainer = document.createElement("div");
+                            buttonContainer.id = "buttonContainer";
+                            buttonContainer.className = "d-flex justify-content-between align-items-center mt-3 gap-2";
+                        }
+                        buttonContainer.innerHTML = "";
+                        buttonContainer.appendChild(registerButton);
+                        buttonContainer.appendChild(removeButton);
+                    }
+                } else {
+                    console.log("User not found in database. Registering required.");
+                }
+            }).catch((error) => {
+                console.error("Error fetching user data:", error);
+            });
+        }
+    });
+
+    document.getElementById("bootroom-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            alert("You need to be logged in to register or update.");
+            return;
+        }
+
+        const userId = user.uid;
+        const userRef = firebase.firestore().collection("users").doc(userId);
+
+        const userData = {
+            displayName: document.getElementById("displayName").value,
+            email: document.getElementById("email").value,
+            clubTeam: document.getElementById("clubTeam").value,
+            nationalTeam: document.getElementById("nationalTeam").value,
+            location: document.getElementById("location").value,
+            betaTesting: document.getElementById("betaTesting").checked,
+            newsletter: document.getElementById("newsletter").checked,
+            devTeam: document.getElementById("devTeam").checked,
+            admin_user: 0,
+            moderator: 0,
+            priority: 0,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+ userRef.get().then((doc) => {
+          const isNewUser = !doc.exists; // Check if user is new
+
+          userRef.set(userData, { merge: true }).then(() => {
+              if (isNewUser) {
+                  window.location.href = "./success.html"; // Redirect only if registering
+              } else {
+                  const successModal = new bootstrap.Modal(document.getElementById("successModal"));
+                 // successModal.show();
+              }
+          }).catch((error) => {
+              console.error("Error updating details:", error);
+          });
+      }).catch((error) => {
+          console.error("Error checking user data:", error);
+      });
+    });
+});
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    video.addEventListener("ended", function () {
+        video.pause(); // Ensure it doesn't loop
+        video.currentTime = video.duration; // Stay on the last frame
+    });
+});
+
+
+    </script>
+
+<!-- Privacy Policy Modal -->
+<div class="modal fade" id="privacyPolicyModal" tabindex="-1" aria-labelledby="privacyPolicyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="privacyPolicyModalLabel">Plain English Privacy Policy</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>1. Introduction</strong></p>
+          <p>Welcome to Footytube! Your privacy is important to us, and we’re committed to keeping your data safe and secure. This policy explains what data we collect, how we use it, and how we protect it.</p>
+
+          <p><strong>2. What Information We Collect</strong></p>
+          <ul>
+            <li>✅ Your Name & Email (for account creation and login)</li>
+            <li>✅ Your Profile Picture (if you sign in with Google)</li>
+            <li>✅ Your Preferences (teams you support, newsletter sign-ups, etc.)</li>
+          </ul>
+          <p><em>We do NOT collect sensitive personal data like payment details, addresses, or government IDs.</em></p>
+
+          <p><strong>3. How We Use Your Information</strong></p>
+          <ul>
+            <li>🔹 Provide our services (e.g., logging in, saving preferences)</li>
+            <li>🔹 Improve our platform (analyzing user trends and feedback)</li>
+            <li>🔹 Communicate with you (if you opt-in to newsletters or beta testing)</li>
+          </ul>
+          <p>We will never sell your data or share it with third parties in a way that could personally identify you.</p>
+
+          <p><strong>4. How We Store & Protect Your Data</strong></p>
+          <p>We use Google Firebase and other secure third-party providers to store and manage data. We take every reasonable measure to protect your information, including:</p>
+          <ul>
+            <li>✅ Encryption & Secure Servers</li>
+            <li>✅ Restricted Access to Data</li>
+            <li>✅ Regular Security Updates</li>
+          </ul>
+          <p><em>However, no system is 100% foolproof, so we encourage users to use strong passwords and keep login details private.</em></p>
+
+          <p><strong>5. Who We Share Your Data With</strong></p>
+          <p>We only share anonymized or necessary data with third-party services that help us run Footytube. This includes:</p>
+          <ul>
+            <li>🔹 Google Firebase (authentication, database, and storage)</li>
+            <li>🔹 Analytics Providers (to improve user experience, without personally identifying you)</li>
+          </ul>
+          <p>We will never knowingly share personal data with advertisers, marketers, or third parties for profit.</p>
+
+          <p><strong>6. Your Rights & Choices</strong></p>
+          <p>You have full control over your data. You can:</p>
+          <ul>
+            <li>🔹 View & Update Your Information in your account settings</li>
+            <li>🔹 Request Data Deletion by contacting our support team</li>
+            <li>🔹 Opt-Out of Emails & Notifications anytime</li>
+          </ul>
+          <p>We will honor all requests as quickly as possible.</p>
+
+          <p><strong>7. Changes to This Policy</strong></p>
+          <p>We may update this policy from time to time. If we make any major changes, we’ll let you know via email or an in-app notification.</p>
+
+          <p><strong>8. Contact Us</strong></p>
+          <p>If you have any questions, feel free to reach out to us at <strong>footytube.dev@gmail.com</strong>.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+  <!-- Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Account Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete your account? This action is irreversible.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="confirmDeleteBtn" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Your details have been updated successfully!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  </body>
+</html>
